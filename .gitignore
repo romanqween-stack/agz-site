@@ -1,0 +1,11 @@
+# зависимости бэкенда — ставятся через npm install
+server/node_modules/
+node_modules/
+
+# секреты — ключ Anthropic API никогда не коммитим
+server/.env
+.env
+
+# системное
+Thumbs.db
+.DS_Store

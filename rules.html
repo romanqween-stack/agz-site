@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D2A4F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="АГЗ МЧС">
+<link rel="icon" type="image/png" href="img/emblem-academy.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"><title>Правила приёма — Академия гражданской защиты</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="wrap">
+  <div class="page-head" data-reveal>
+    <div class="page-bg" style="background-image:url('img/cadets-navy.jpg')"></div>
+    <div class="page-veil"></div>
+    <div class="neon" style="width:280px;height:280px;top:-120px;right:8%;background:radial-gradient(circle,rgba(56,210,242,.4),transparent 70%)"></div>
+    <div class="ph-inner">
+      <div class="crumb"><a href="index.html">Главная</a> / Правила приёма</div>
+      <h1>Правила приёма</h1>
+      <p>Требования к поступающим, перечень документов, сроки, этапы отбора, медкомиссия, физподготовка и конкурсный отбор.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap section">
+  <div class="alert info mb-3" data-reveal>
+    <span>ℹ️</span>
+    <div>Приём осуществляется в соответствии с <b>Правилами приёма №445 от 14.09.2021</b> и Законом РК
+      «Об образовании». Полный текст размещён на сайте
+      <a href="https://agz.edu.kz" target="_blank">agz.edu.kz</a>. Ниже — ключевые положения для абитуриента.</div>
+  </div>
+
+  <div class="grid grid-2" style="align-items:start">
+    <div data-reveal>
+      <h2 class="h2-left">Требования к кандидатам</h2>
+      <ul class="list-check mb-3" style="background:#fff;border-radius:18px;padding:8px 20px;box-shadow:var(--shadow)">
+        <li>Гражданство Республики Казахстан (юноши и девушки)</li>
+        <li>Среднее образование</li>
+        <li>Возраст от 16 до 35 лет</li>
+        <li>ЕНТ — не менее 50 баллов (история Казахстана, физика, математика — не ниже 5 баллов; грамотность чтения и математическая грамотность — не ниже 3 баллов)</li>
+        <li>Отсутствие судимости</li>
+        <li>Рост: юноши — не менее 165 см, девушки — не менее 160 см</li>
+        <li>Годность по состоянию здоровья к воинской службе и учёбе</li>
+      </ul>
+
+      <h2 class="h2-left">Этапы отбора</h2>
+      <div class="steps">
+        <div class="step"><div class="num"></div><div><h4>Приём документов</h4>
+          <p>Осуществляется в ДЧС областей, гг. Астаны, Алматы, Шымкента и воинских частях МЧС РК
+          (<a href="dchs.html">контакты ДЧС по регионам</a>).</p></div></div>
+        <div class="step"><div class="num"></div><div><h4>Медицинская комиссия (ОВВК)</h4>
+          <p>Отбор по медицинским и психофизиологическим показаниям с целью определения годности по состоянию здоровья к поступлению на учёбу.</p></div></div>
+        <div class="step"><div class="num"></div><div><h4>Сдача нормативов физподготовки</h4>
+          <p data-t="rules-fizo">Зачёт по физической подготовке в соответствии с утверждёнными <a href="#fizo">нормативами</a>.</p></div></div>
+        <div class="step"><div class="num"></div><div><h4>Заседание приёмной комиссии</h4>
+          <p>Конкурсный отбор и зачисление в число курсантов Академии, а также отбор для поступления в зарубежные профильные учебные заведения.</p></div></div>
+      </div>
+    </div>
+
+    <div data-reveal style="transition-delay:.08s">
+      <div class="panel mb-3">
+        <div class="panel-head">📄 Перечень документов для поступления</div>
+        <div class="panel-body" id="docList"></div>
+      </div>
+
+      <h2 class="h2-left">Подробнее по темам</h2>
+      <div class="acc">
+        <div class="acc-head" onclick="toggleAcc(this)">🩺 Медицинский и психофизиологический отбор <span class="chev">▾</span></div>
+        <div class="acc-body"><p>Отбор по медицинским и психофизиологическим показаниям проводится с целью определения годности
+          по состоянию здоровья к поступлению на учёбу. Кандидаты проходят медицинское и психофизиологическое освидетельствования,
+          в том числе полиграфологическое исследование, а также обязательную специальную проверку.</p></div>
+      </div>
+      <div class="acc">
+        <div class="acc-head" onclick="toggleAcc(this)">🎯 Конкурсный отбор <span class="chev">▾</span></div>
+        <div class="acc-body"><p>Зачисление в Академию производится по конкурсу в соответствии с баллами сертификата ЕНТ с учётом
+          результатов отбора по медицинским, физическим и психофизиологическим показателям. На четвёртом этапе приёмная комиссия
+          также проводит отбор для поступления в зарубежные профильные учебные заведения.</p></div>
+      </div>
+      <div class="acc">
+        <div class="acc-head" onclick="toggleAcc(this)">📝 Куда подавать заявление <span class="chev">▾</span></div>
+        <div class="acc-body"><p>Граждане, изъявившие желание поступать в Академию, подают заявления (в произвольной форме)
+          в подразделения кадровой и воспитательной работы территориальных Департаментов по чрезвычайным ситуациям
+          по месту жительства. <a href="dchs.html">Контакты ДЧС по регионам</a>.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="h2-left mt-3" id="fizo" data-reveal>Нормативы по физической подготовке</h2>
+  <p class="lead-left" data-reveal>Для кандидатов, поступающих в Академию гражданской защиты имени Малика Габдуллина МЧС Республики Казахстан</p>
+  <div class="table-wrap" data-reveal>
+    <table class="norms rt">
+      <thead>
+        <tr><th rowspan="2">Наименование норматива</th><th colspan="2">Отлично</th><th colspan="2">Хорошо</th><th colspan="2">Удовлетворительно</th></tr>
+        <tr><th>юноши</th><th>девушки</th><th>юноши</th><th>девушки</th><th>юноши</th><th>девушки</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Бег 100 метров (секунды)</td><td>14.0</td><td>16.0</td><td>14.5</td><td>16.5</td><td>15.0</td><td>17.0</td></tr>
+        <tr><td>Бег 1000 метров (минуты/секунды)</td><td>3.40</td><td>4.40</td><td>3.50</td><td>5.00</td><td>4.00</td><td>5.20</td></tr>
+        <tr><td>Подтягивание (количество раз)</td><td>11</td><td>—</td><td>9</td><td>—</td><td>7</td><td>—</td></tr>
+        <tr><td>Подъём туловища из положения лёжа на спине в течение 1 мин. (количество раз)</td><td>—</td><td>35</td><td>—</td><td>30</td><td>—</td><td>25</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="h2-left mt-3" data-reveal>Преимущества обучения в Академии</h2>
+  <p class="lead-left" data-reveal>Обучение курсантов осуществляется за счёт средств республиканского бюджета. Срок обучения — 4 года</p>
+  <div class="grid grid-3">
+    <div class="card" data-reveal><div class="ico">🏠</div><h3>Полное гособеспечение</h3>
+      <p>Бесплатное проживание в общежитии Академии (с 1 по 3 курс), питание и форменное обмундирование.</p></div>
+    <div class="card card--blue" data-reveal style="transition-delay:.06s"><div class="ico">💰</div><h3>Стипендия и проезд</h3>
+      <p>Выплата стипендии и оплата проезда домой и обратно в период каникулярных отпусков.</p></div>
+    <div class="card" data-reveal style="transition-delay:.12s"><div class="ico">🎖️</div><h3>Звание и работа</h3>
+      <p>Присвоение специального звания «лейтенант гражданской защиты» или воинского звания «лейтенант». Гарантированное трудоустройство.</p></div>
+  </div>
+  <div class="alert info mt-2" data-reveal><span>ℹ️</span>
+    <div>Лица, отслужившие срочную воинскую службу и прошедшие конкурсный отбор в период службы
+      (обратившиеся не позднее 1 года со дня увольнения), при поступлении <b>не сдают ЕНТ и физнормативы</b>.</div></div>
+
+  <h2 class="h2-left mt-3" data-reveal>Ориентировочные сроки работы приёмной комиссии</h2>
+  <div class="table-wrap" data-reveal>
+    <table class="rt">
+      <thead><tr><th>Этап</th><th>Период</th><th>Примечание</th></tr></thead>
+      <tbody>
+        <tr><td>Начало приёма документов</td><td>январь</td><td class="muted">года поступления; ДЧС областей, городов Астана, Алматы, Шымкент и воинские части МЧС РК</td></tr>
+        <tr><td>Медицинское и психофизиологическое освидетельствование, специальная проверка</td><td>—</td><td class="muted">в том числе полиграфологическое исследование</td></tr>
+        <tr><td>Сдача ЕНТ и нормативов по физической подготовке</td><td>—</td><td class="muted">кроме лиц, отслуживших срочную службу и прошедших конкурсный отбор в период службы</td></tr>
+        <tr><td>Прибытие кандидатов в Академию для участия в конкурсе</td><td>июль</td><td class="muted">конкурсный отбор и зачисление</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint mt-1">Источник: информационная листовка «Набор 2026», <a href="https://agz.edu.kz" target="_blank" rel="noopener">agz.edu.kz</a>.</p>
+
+  <div class="text-center mt-3" data-reveal>
+    <a href="cabinet.html" class="btn btn--lg">Личный кабинет абитуриента <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/i18n-kz.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/assistant.js"></script>
+<script src="js/admission-data.js"></script>
+<script>
+  mountChrome('rules');
+  /* перечень — тот же, что требует кабинет абитуриента (js/admission-data.js) */
+  function renderDocs(){
+    const kz=SITE.lang==='kz';
+    document.getElementById('docList').innerHTML =
+      DOC_TYPES.map(d=>`<div class="doc-row" data-noi18n>
+        <div class="dico">📎</div>
+        <div class="dmeta"><b>${kz?d.kz:d.ru}</b><small>${(kz?d.hkz:d.hru)||(d.req?(kz?'міндетті құжат':'обязательный документ'):(kz?'қосымша':'дополнительно'))}</small></div>
+        ${d.req?`<span class="tag">${kz?'міндетті':'обязательно'}</span>`:`<span class="badge loaded">${kz?'қажет болса':'по необходимости'}</span>`}
+      </div>`).join('');
+  }
+  renderDocs();
+  SITE.onChange(renderDocs);
+</script>
+</body>
+</html>

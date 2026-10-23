@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D2A4F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="АГЗ МЧС">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"><title>Кабинет абитуриента — Академия гражданской защиты</title>
+<link rel="icon" type="image/png" href="img/emblem-academy.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="wrap">
+  <div class="page-head" data-reveal>
+    <div class="page-bg" style="background-image:url('img/cadets-blue.jpg')"></div>
+    <div class="page-veil"></div>
+    <div class="neon" style="width:260px;height:260px;top:-120px;right:6%;background:radial-gradient(circle,rgba(56,210,242,.4),transparent 70%)"></div>
+    <div class="ph-inner ph-row">
+      <div>
+        <div class="crumb"><a href="index.html">Главная</a> / Личный кабинет</div>
+        <h1 data-i18n="brand_h">Кабинет абитуриента</h1>
+        <p data-i18n="lg_sub">Подача документов в приемную комиссию Академии</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ВХОД / РЕГИСТРАЦИЯ ================= -->
+<div class="wrap section" id="loginScreen" data-noi18n>
+  <div class="auth-wrap" id="authWrap">
+    <div class="auth-card">
+      <div class="auth-head">
+        <div class="neon" style="width:220px;height:220px;top:-110px;right:-40px;background:radial-gradient(circle,rgba(56,210,242,.45),transparent 70%)"></div>
+        <img src="img/emblem-academy.png" alt="Эмблема Академии" style="position:relative">
+        <h2 data-i18n="lg_h" style="position:relative">Кабинет абитуриента</h2>
+        <p data-i18n="lg_sub" style="position:relative">Подача документов в приемную комиссию Академии</p>
+      </div>
+      <div class="auth-tabs" id="authTabs">
+        <button id="tbLogin" class="active" onclick="mode('login')" data-i18n="lg_t1">Вход</button>
+        <button id="tbReg" onclick="mode('reg')" data-i18n="lg_t2">Регистрация</button>
+      </div>
+      <div class="auth-body">
+
+        <div id="paneLogin">
+          <div class="auth-step" data-i18n="lg_step1">Шаг 1: ИИН и код доступа</div>
+          <label data-i18n="l_iin">ИИН</label>
+          <input id="lgIin" placeholder="000000000000" maxlength="12" inputmode="numeric" autocomplete="username">
+          <label data-i18n="lg_pin">Код доступа</label>
+          <input id="lgPin" type="password" placeholder="••••" maxlength="8" autocomplete="current-password"
+                 onkeydown="if(event.key==='Enter')doLogin()">
+          <button class="btn btn--lg btn--full mt-2" onclick="doLogin()"><span data-i18n="lg_btn">Войти в кабинет</span> <span class="arrow">→</span></button>
+          <div class="auth-err" id="lgErr"></div>
+          <div class="auth-hint" data-i18n="lg_hint">Данные личного дела сохраняются: при следующем входе вы увидите актуальный статус заявки.</div>
+          <div class="auth-demo">
+            <button class="btn btn--gold btn--full" onclick="demoLogin()" data-i18n="lg_demo_btn">Демо-вход: тестовый абитуриент</button>
+            <p class="hint mt-1" data-i18n="lg_demo_note">Для показа прототипа — открывает заполненное личное дело без ЭЦП.</p>
+          </div>
+        </div>
+
+        <div id="paneEds" style="display:none">
+          <div class="auth-step" data-i18n="lg_eds_h">Шаг 2: Подтверждение через ЭЦП</div>
+          <p class="hint mt-1" data-i18n="lg_eds_sub">Прикрепите ключ ЭЦП, использованный при регистрации, и введите его пароль.</p>
+          <label data-i18n="l_eds">Ключ ЭЦП (файл .p12)</label>
+          <div class="dropzone" onclick="document.getElementById('lgEdsFile').click()">
+            <span id="lgEdsName" data-i18n="eds_pick">📎 Нажмите, чтобы прикрепить файл ключа (.p12 / .pfx)</span>
+          </div>
+          <input type="file" id="lgEdsFile" accept=".p12,.pfx" style="display:none" onchange="edsPicked(this,'lgEdsName')">
+          <label data-i18n="l_eds_pass">Пароль ключа ЭЦП</label>
+          <input id="lgEdsPass" type="password" maxlength="32" placeholder="••••••" onkeydown="if(event.key==='Enter')doLoginEds()">
+          <button class="btn btn--lg btn--full mt-2" onclick="doLoginEds()"><span data-i18n="lg_eds_btn">Подтвердить и войти</span> <span class="arrow">→</span></button>
+          <div class="auth-err" id="edsErr"></div>
+          <div class="text-center"><button class="lnk" onclick="backToLoginStep1()" data-i18n="lg_eds_back">← Назад к шагу 1</button></div>
+        </div>
+
+        <div id="paneReg" style="display:none">
+          <div class="form-grid">
+            <div class="field full"><label data-i18n="l_fio">ФИО</label><input id="rgFio" placeholder="Иванов Иван Иванович"></div>
+            <div class="field"><label data-i18n="l_iin">ИИН</label><input id="rgIin" maxlength="12" inputmode="numeric" placeholder="000000000000"></div>
+            <div class="field"><label data-i18n="l_dob">Дата рождения</label><input id="rgDob" type="date"></div>
+            <div class="field"><label data-i18n="l_region">Регион (по прописке)</label><select id="rgRegion"></select></div>
+            <div class="field"><label data-i18n="l_city">Населенный пункт</label><select id="rgCity" disabled></select>
+              <input id="rgCityOther" style="display:none;margin-top:8px" data-i18n-ph="o_c_ph" placeholder="Введите название"></div>
+            <div class="field"><label data-i18n="l_phone">Телефон</label><input id="rgPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" value="+7 " placeholder="+7 700 000 00 00"></div>
+            <div class="field"><label data-i18n="l_priv">Льготная категория</label><select id="rgPriv"></select></div>
+            <div class="field full"><label data-i18n="l_ent">Балл ЕНТ</label><input id="rgEnt" type="number" min="0" max="140" placeholder="0"></div>
+            <div class="field full"><label data-i18n="l_eds">Ключ ЭЦП (файл .p12)</label>
+              <div class="dropzone" onclick="document.getElementById('rgEdsFile').click()">
+                <span id="rgEdsName" data-i18n="eds_pick">📎 Нажмите, чтобы прикрепить файл ключа (.p12 / .pfx)</span>
+              </div>
+              <input type="file" id="rgEdsFile" accept=".p12,.pfx" style="display:none" onchange="edsPicked(this,'rgEdsName')"></div>
+            <div class="field"><label data-i18n="l_eds_pass">Пароль ключа ЭЦП</label><input id="rgEdsPass" type="password" maxlength="32" placeholder="••••••"></div>
+            <div class="field"><label data-i18n="lg_pin2">Придумайте код доступа</label><input id="rgPin" type="password" maxlength="8" placeholder="••••"></div>
+          </div>
+          <div class="alert info mt-2"><span>🔑</span><div data-i18n="eds_note_reg">Ключ ЭЦП понадобится при каждом входе в кабинет для подтверждения личности.</div></div>
+          <button class="btn btn--lg btn--full mt-2" onclick="doReg()"><span data-i18n="rg_btn">Зарегистрироваться</span> <span class="arrow">→</span></button>
+          <div class="auth-err" id="rgErr"></div>
+          <div class="alert warn"><span>📨</span><div data-i18n="rg_note">После регистрации загрузите документы и отправьте заявку — она поступит в приемную комиссию Академии.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= КАБИНЕТ ================= -->
+<div class="wrap section" id="app" style="display:none" data-noi18n>
+  <div class="portal-bar">
+    <div class="ava" id="ubAva">—</div>
+    <div class="who">
+      <b id="ubName">—</b>
+      <small><span data-i18n="ub_case">Личное дело</span>: <b id="ubCase">—</b> · <span data-i18n="ub_iin">ИИН</span>: <b id="ubIin">—</b></small>
+      <span id="syncNote" class="sync"></span>
+    </div>
+    <div class="right">
+      <span id="ubStatus"></span>
+      <button class="btn btn--outline btn--sm" onclick="logout()" data-i18n="nav_exit">Выход</button>
+    </div>
+  </div>
+
+  <div class="cab-layout">
+    <nav class="side-menu" id="nav">
+      <button data-p="me" class="active"><span class="mi">📋</span><span data-i18n="nav_me">Моя заявка</span></button>
+      <button data-p="docs"><span class="mi">📤</span><span data-i18n="nav_docs">Мои документы</span></button>
+      <button data-p="news"><span class="mi">🔔</span><span data-i18n="nav_news">Уведомления</span><i class="ndot" id="newsDot" style="display:none"></i></button>
+      <button data-p="stages"><span class="mi">🎯</span><span data-i18n="nav_stages">Этапы отбора</span></button>
+      <button data-p="profile"><span class="mi">📝</span><span data-i18n="nav_profile">Мои данные</span></button>
+    </nav>
+
+    <div>
+      <!-- МОЯ ЗАЯВКА -->
+      <section class="tab active" id="me">
+        <h2 class="p-title" data-i18n="me_h">Статус моей заявки</h2>
+        <p class="p-sub" data-i18n="me_sub">Здесь отображается только ваша заявка. Данные других абитуриентов недоступны.</p>
+        <div class="card verdict" id="verdictCard">
+          <div class="v-ic" id="vIc">⏳</div>
+          <div style="flex:1"><h3 id="vTitle">—</h3><p id="vText">—</p><div id="vAct"></div></div>
+        </div>
+        <div class="tiles t3 mt-2">
+          <div class="tile is-green"><b id="kOk" style="color:var(--green)">0</b><span data-i18n="b_ok">принято</span></div>
+          <div class="tile is-blue"><b id="kWait" style="color:var(--blue)">0</b><span data-i18n="b_wait">на проверке</span></div>
+          <div class="tile is-red"><b id="kFix" style="color:var(--red)">0</b><span data-i18n="b_fix">требует исправления</span></div>
+        </div>
+        <div class="panel mt-2">
+          <div class="panel-head" data-i18n="me_pr_h">Комплектность личного дела</div>
+          <div class="panel-body">
+            <div class="prog"><div class="prog-in" id="progIn"></div></div>
+            <div class="prog-lbl"><span id="progTxt">—</span><span id="progPct">0%</span></div>
+            <div id="missBox"></div>
+          </div>
+        </div>
+        <div class="panel mt-2">
+          <div class="panel-head" data-i18n="me_todo_h">Что нужно сделать сейчас</div>
+          <div class="panel-body"><ul class="todo" id="todoList"></ul></div>
+        </div>
+      </section>
+
+      <!-- МОИ ДОКУМЕНТЫ -->
+      <section class="tab" id="docs">
+        <h2 class="p-title" data-i18n="dc_h">Мои документы</h2>
+        <p class="p-sub" data-i18n="dc_sub">Перечень документов личного дела, статус проверки и замечания приемной комиссии по каждому файлу.</p>
+        <div class="filter-row" id="docFilter"></div>
+        <div id="docList"></div>
+        <div class="alert info mt-2"><span>ℹ️</span><div data-i18n="dc_note">Заменить файл можно только по документам со статусом «требует исправления» или «не загружено». Принятые документы изменению не подлежат.</div></div>
+        <p class="hint mt-1" data-i18n="dc_fmt">PDF, JPG, PNG, DOC, DOCX, ZIP · до 15 МБ</p>
+      </section>
+
+      <!-- УВЕДОМЛЕНИЯ -->
+      <section class="tab" id="news">
+        <h2 class="p-title" data-i18n="nw_h">Уведомления комиссии</h2>
+        <p class="p-sub" data-i18n="nw_sub">Решения приемной комиссии по вашей заявке приходят сюда автоматически.</p>
+        <div class="panel"><div class="panel-body" id="newsList"></div></div>
+      </section>
+
+      <!-- ЭТАПЫ ОТБОРА -->
+      <section class="tab" id="stages">
+        <h2 class="p-title" data-i18n="sg_h">Мои этапы отбора</h2>
+        <p class="p-sub" data-i18n="sg_sub">Индивидуальный маршрут по вашей заявке. Следующий этап открывается после успешного прохождения предыдущего.</p>
+        <div class="card"><div class="route" id="stepList"></div></div>
+        <div class="alert info mt-2"><span>📖</span><div><span data-i18n="sg_more">Подробно о каждом этапе — в разделе</span> <a href="rules.html" data-i18n="sg_more_link">«Правила приёма»</a>.</div></div>
+      </section>
+
+      <!-- МОИ ДАННЫЕ -->
+      <section class="tab" id="profile">
+        <h2 class="p-title" data-i18n="pf_h">Мои данные</h2>
+        <p class="p-sub" data-i18n="pf_sub">Анкета сформирована из поданного заявления. Изменения вносит приемная комиссия по вашему обращению.</p>
+        <div class="grid grid-2" style="align-items:start">
+          <div class="panel">
+            <div class="panel-head" data-i18n="pf_a_h">Анкета абитуриента</div>
+            <div class="panel-body"><dl class="anketa" id="anketa"></dl></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head" data-i18n="pf_c_h">Обращение в комиссию</div>
+            <div class="panel-body">
+              <p class="hint mb-2" data-i18n="pf_c_sub">Если в анкете есть ошибка — отправьте обращение ответственному сотруднику.</p>
+              <div class="field"><label data-i18n="pf_c_l">Текст обращения</label>
+                <input id="appealTxt" data-i18n-ph="pf_c_ph" placeholder="Например: неверно указан регион"></div>
+              <button class="btn btn--full mt-2" onclick="sendAppeal()" data-i18n="pf_c_btn">Отправить обращение</button>
+              <div class="alert info mt-2"><span>🔒</span><div data-i18n="pf_note">Ваши персональные данные видны только вам и уполномоченным сотрудникам приемной комиссии.</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="filePick" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx,.zip">
+
+<div class="ov pvov" id="pv" onclick="closePv(event)" data-noi18n>
+  <div class="pv-box">
+    <div class="pv-head">
+      <b id="pvName">—</b><small id="pvMeta"></small>
+      <a class="btn btn--light btn--sm" id="pvDl" download data-i18n="pv_dl">Скачать</a>
+      <button class="x-btn" onclick="closePv()">✕</button>
+    </div>
+    <div class="pv-body" id="pvBody"></div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/i18n-kz.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/assistant.js"></script>
+<script src="js/config.js"></script>
+<script src="js/admission-data.js"></script>
+<script src="js/admission-core.js"></script>
+<script src="js/cabinet.js"></script>
+<script>mountChrome('cabinet');</script>
+</body>
+</html>

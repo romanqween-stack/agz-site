@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D2A4F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="АГЗ МЧС">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"><title>Панель приёмной комиссии — Академия гражданской защиты</title>
+<link rel="icon" type="image/png" href="img/emblem-academy.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="wrap">
+  <div class="page-head" data-reveal>
+    <div class="page-bg" style="background-image:url('img/work-shtab.jpg')"></div>
+    <div class="page-veil"></div>
+    <div class="neon" style="width:260px;height:260px;top:-120px;right:6%;background:radial-gradient(circle,rgba(56,210,242,.4),transparent 70%)"></div>
+    <div class="ph-inner ph-row">
+      <div>
+        <div class="crumb"><a href="index.html">Главная</a> / Панель приёмной комиссии</div>
+        <h1 data-i18n="brand_h">Панель приемной комиссии</h1>
+        <p data-i18n="lg_sub">Служебный доступ. Вход только для членов приемной комиссии Академии.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ВХОД СОТРУДНИКА ================= -->
+<div class="wrap section" id="loginScreen" data-noi18n>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-head">
+        <div class="neon" style="width:220px;height:220px;top:-110px;right:-40px;background:radial-gradient(circle,rgba(56,210,242,.45),transparent 70%)"></div>
+        <img src="img/emblem-academy.png" alt="Эмблема Академии" style="position:relative">
+        <h2 data-i18n="lg_h" style="position:relative">Панель приемной комиссии</h2>
+        <p data-i18n="lg_sub" style="position:relative">Служебный доступ. Вход только для членов приемной комиссии Академии.</p>
+      </div>
+      <div class="auth-body">
+        <label data-i18n="lg_l1">Служебный логин</label>
+        <input id="lgUser" placeholder="komissiya" autocomplete="username">
+        <label data-i18n="lg_l2">Пароль</label>
+        <input id="lgPass" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="btn btn--lg btn--full mt-2" onclick="doLogin()"><span data-i18n="lg_btn">Войти в панель</span> <span class="arrow">→</span></button>
+        <div class="auth-err" id="lgErr"></div>
+        <div class="auth-hint"><b data-i18n="lg_demo">Служебный доступ:</b> komissiya / 4455</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ПАНЕЛЬ ================= -->
+<div class="wrap section" id="app" style="display:none" data-noi18n>
+  <div class="portal-bar">
+    <div class="ava sq">ПК</div>
+    <div class="who">
+      <b id="opName">—</b>
+      <small data-i18n="op_role">Член приемной комиссии · полный доступ к личным делам</small>
+      <span id="syncNote" class="sync"></span>
+    </div>
+    <div class="right">
+      <span class="hint" id="opClock"></span>
+      <button class="btn btn--outline btn--sm" onclick="logout()" data-i18n="nav_exit">Выход</button>
+    </div>
+  </div>
+
+  <nav class="tabbar" id="nav">
+    <button data-p="inbox" class="active"><span data-i18n="nav_in">Входящие</span><i class="ncount" id="inCount">0</i></button>
+    <button data-p="dash" data-i18n="nav_dash">Сводка</button>
+    <button data-p="base" data-i18n="nav_base">База заявок</button>
+    <button data-p="fix" data-i18n="nav_fix">На доработке</button>
+    <button data-p="stagesTab" data-i18n="nav_stages">Этапы отбора</button>
+    <button data-p="appeals"><span data-i18n="nav_appeals">Обращения</span><i class="ncount" id="apCount">0</i></button>
+    <button data-p="analytics" data-i18n="nav_an">Аналитика</button>
+  </nav>
+
+  <!-- ---------- ВХОДЯЩИЕ ЗАЯВКИ ---------- -->
+  <section class="tab active" id="inbox">
+    <h2 class="p-title" data-i18n="in_h">Входящие заявки абитуриентов</h2>
+    <p class="p-sub" data-i18n="in_sub">Заявки, поступившие из кабинетов абитуриентов и еще не рассмотренные комиссией.</p>
+    <div class="table-wrap wide"><table class="rt"><thead><tr>
+      <th data-i18n="t_case">№ дела</th><th data-i18n="t_app">Абитуриент</th><th data-i18n="t_region">Регион</th>
+      <th data-i18n="t_date">Поступила</th><th data-i18n="t_compl">Комплектность</th><th data-i18n="t_act">Действие</th>
+    </tr></thead><tbody id="inboxBody"></tbody></table>
+    <div class="empty" id="inboxEmpty" style="display:none" data-i18n="in_empty">Новых заявок нет</div></div>
+    <div class="alert info mt-2"><span>ℹ️</span><div data-i18n="in_note">Заявка появляется здесь автоматически в момент отправки абитуриентом. Решение комиссии сразу отображается в его кабинете.</div></div>
+  </section>
+
+  <!-- ---------- СВОДКА ---------- -->
+  <section class="tab" id="dash">
+    <h2 class="p-title" data-i18n="ds_h">Сводка приемной кампании</h2>
+    <p class="p-sub" data-i18n="ds_sub">Единая база заявок абитуриентов. Нажмите на показатель, чтобы отфильтровать базу.</p>
+    <div class="tiles t5 mb-2">
+      <div class="tile is-gray click" onclick="quick('all')"><b id="k1">0</b><span data-i18n="k_all">Всего заявок</span></div>
+      <div class="tile is-blue click" onclick="quick('review')"><b id="k2" style="color:var(--blue)">0</b><span data-i18n="k_review">На рассмотрении</span></div>
+      <div class="tile is-orange click" onclick="quick('fix')"><b id="k3" style="color:var(--orange)">0</b><span data-i18n="k_fix">На доработке</span></div>
+      <div class="tile is-green click" onclick="quick('approved')"><b id="k4" style="color:var(--green)">0</b><span data-i18n="k_appr">Допущено</span></div>
+      <div class="tile is-red click" onclick="quick('rejected')"><b id="k5" style="color:var(--red)">0</b><span data-i18n="k_rej">Отказано</span></div>
+    </div>
+    <div class="panel mb-2">
+      <div class="panel-head" data-i18n="ds_q_h">Требуют внимания сегодня</div>
+      <div class="table-wrap" style="border-radius:0;box-shadow:none"><table class="rt"><thead><tr>
+        <th data-i18n="t_app">Абитуриент</th><th data-i18n="t_prob">Проблема</th><th data-i18n="t_act">Действие</th>
+      </tr></thead><tbody id="urgentBody"></tbody></table></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head" data-i18n="ds_l_h">Журнал обмена с кабинетами абитуриентов</div>
+      <div class="panel-body"><ul class="log" id="globalLog"></ul></div>
+    </div>
+  </section>
+
+  <!-- ---------- БАЗА ЗАЯВОК ---------- -->
+  <section class="tab" id="base">
+    <h2 class="p-title" data-i18n="bs_h">База заявок абитуриентов</h2>
+    <p class="p-sub" data-i18n="bs_sub">Автоматический анализ комплектности личных дел. Нажмите на строку — откроется личное дело.</p>
+    <div class="card mb-2" style="padding:18px">
+      <div class="toolbar" style="margin:0">
+        <div class="fld"><label data-i18n="fl_search">Поиск</label><input id="fSearch" data-i18n-ph="fl_search_ph" placeholder="ФИО, ИИН или № дела" oninput="renderBase()"></div>
+        <div class="fld"><label data-i18n="fl_status">Статус заявки</label><select id="fStatus" onchange="renderBase()"></select></div>
+        <div class="fld"><label data-i18n="fl_region">Регион</label><select id="fRegion" onchange="renderBase()"></select></div>
+        <div class="fld"><label data-i18n="fl_compl">Комплектность</label><select id="fCompl" onchange="renderBase()"></select></div>
+      </div>
+    </div>
+    <div class="table-wrap wide">
+      <table class="rt"><thead><tr>
+        <th data-i18n="t_case">№ дела</th><th data-i18n="t_app">Абитуриент</th><th data-i18n="t_region">Регион</th>
+        <th data-i18n="t_ent">ЕНТ</th><th data-i18n="t_compl">Комплектность</th><th data-i18n="t_flags">Замечания</th><th data-i18n="t_status">Статус</th>
+      </tr></thead><tbody id="baseBody"></tbody></table>
+      <div class="empty" id="baseEmpty" style="display:none" data-i18n="t_empty">По заданным условиям заявок не найдено</div>
+    </div>
+  </section>
+
+  <!-- ---------- НА ДОРАБОТКЕ ---------- -->
+  <section class="tab" id="fix">
+    <h2 class="p-title" data-i18n="fx_h">Отправленные на доработку</h2>
+    <p class="p-sub" data-i18n="fx_sub">Личные дела с замечаниями. Абитуриент видит замечание в своем кабинете и загружает исправленный документ.</p>
+    <div class="table-wrap wide"><table class="rt"><thead><tr>
+      <th data-i18n="t_case">№ дела</th><th data-i18n="t_app">Абитуриент</th><th data-i18n="t_doc">Документ</th>
+      <th data-i18n="t_cmt">Замечание комиссии</th><th data-i18n="t_act">Действие</th>
+    </tr></thead><tbody id="fixBody"></tbody></table>
+    <div class="empty" id="fixEmpty" style="display:none" data-i18n="fx_empty">Заявок с замечаниями нет</div></div>
+  </section>
+
+  <!-- ---------- ЭТАПЫ ОТБОРА ---------- -->
+  <section class="tab" id="stagesTab">
+    <h2 class="p-title" data-i18n="sg2_h">Этапы отбора абитуриентов</h2>
+    <p class="p-sub" data-i18n="sg2_sub">Решения комиссии по каждому этапу личного дела.</p>
+    <div id="stagesPanelBody"></div>
+  </section>
+
+  <!-- ---------- ОБРАЩЕНИЯ ---------- -->
+  <section class="tab" id="appeals">
+    <h2 class="p-title" data-i18n="ap_h">Обращения абитуриентов</h2>
+    <p class="p-sub" data-i18n="ap_sub">Обращения об изменении данных, поступившие из личных кабинетов абитуриентов.</p>
+    <div class="table-wrap wide"><table class="rt"><thead><tr>
+      <th data-i18n="t_case">№ дела</th><th data-i18n="t_app">Абитуриент</th><th data-i18n="t_appeal_txt">Текст обращения</th>
+      <th data-i18n="t_date">Поступило</th><th data-i18n="t_act">Действие</th>
+    </tr></thead><tbody id="appealsBody"></tbody></table>
+    <div class="empty" id="appealsEmpty" style="display:none" data-i18n="ap_empty">Новых обращений нет</div></div>
+  </section>
+
+  <!-- ---------- АНАЛИТИКА ---------- -->
+  <section class="tab" id="analytics">
+    <h2 class="p-title" data-i18n="an_h">Аналитика по документам</h2>
+    <p class="p-sub" data-i18n="an_sub">Где абитуриенты чаще всего допускают ошибки и какие документы задерживают формирование личных дел.</p>
+    <div class="grid grid-2" style="align-items:start">
+      <div class="panel"><div class="panel-head" data-i18n="an_1">Доля принятых документов по видам</div><div class="panel-body" id="anDocs"></div></div>
+      <div class="panel"><div class="panel-head" data-i18n="an_2">Заявки по регионам</div><div class="panel-body" id="anRegions"></div></div>
+    </div>
+    <div class="panel mt-2">
+      <div class="panel-head" data-i18n="an_3">Проблемные документы (замечания и отсутствие)</div>
+      <div class="panel-body"><div id="anProblem"></div>
+        <div class="alert info mt-2"><span>ℹ️</span><div data-i18n="an_note">Показатели рассчитываются автоматически при каждом изменении статуса документа.</div></div></div>
+    </div>
+    <div class="panel mt-2">
+      <div class="panel-head" data-i18n="an_4">Служебные действия</div>
+      <div class="panel-body">
+        <p class="hint mb-2" data-i18n="an_reset_p">Полное удаление всех личных дел из базы.</p>
+        <button class="btn btn--outline" onclick="resetAsk()" data-i18n="an_reset">Очистить базу заявок</button>
+        <div id="resetBox"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= КАРТОЧКА ЛИЧНОГО ДЕЛА ================= -->
+<div class="ov" id="ov" onclick="closeCase()"></div>
+<aside class="drawer" id="drawer" data-noi18n>
+  <div class="dr-head">
+    <div class="av" id="drAva">—</div>
+    <div><h3 id="drName">—</h3><small id="drCase">—</small></div>
+    <button class="x-btn" onclick="closeCase()">✕</button>
+  </div>
+  <div class="dr-body" id="drBody"></div>
+</aside>
+
+<div class="ov pvov" id="pv" onclick="closePv(event)" data-noi18n>
+  <div class="pv-box">
+    <div class="pv-head">
+      <b id="pvName">—</b><small id="pvMeta"></small>
+      <a class="btn btn--light btn--sm" id="pvDl" download data-i18n="pv_dl">Скачать</a>
+      <button class="x-btn" onclick="closePv()">✕</button>
+    </div>
+    <div class="pv-body" id="pvBody"></div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/i18n-kz.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/config.js"></script>
+<script src="js/admission-data.js"></script>
+<script src="js/admission-core.js"></script>
+<script src="js/commission.js"></script>
+<script>mountChrome('commission');</script>
+</body>
+</html>
