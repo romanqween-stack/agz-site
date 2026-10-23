@@ -8,5 +8,5 @@
    secret / service_role key.
    Пустые строки — локальный режим: данные хранятся только в этом браузере.
    ============================================================ */
-const SUPABASE_URL = 'https://lndrdnzgpntjvhvnghsl.supabase.co/rest/v1/';
+const SUPABASE_URL = 'https://lndrdnzgpntjvhvnghsl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_gnCZlLgtB10sc1MozvGwFg_5anpvpR5';
